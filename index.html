@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deploy KBM Bali 2026 → GitHub</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0a0e14;--bg2:#111820;--bg3:#1a2232;--accent:#00d4aa;--coral:#ff6b6b;--gold:#ffd166;--text:#e8ecf2;--text2:#8899aa;--text3:#556677;--font:'Sora',sans-serif;--mono:'Space Mono',monospace}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.container{max-width:480px;width:100%}
+.logo{text-align:center;margin-bottom:32px}
+.logo-emoji{font-size:48px;margin-bottom:8px}
+.logo-title{font-size:24px;font-weight:700;letter-spacing:-.5px}
+.logo-sub{font-size:13px;color:var(--text2);margin-top:4px}
+.card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;margin-bottom:16px}
+.field{margin-bottom:16px}
+.label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+input[type=text],input[type=password]{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:var(--bg3);color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:border-color .2s}
+input:focus{border-color:var(--accent)}
+input::placeholder{color:var(--text3)}
+.file-drop{border:2px dashed rgba(255,255,255,.1);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.file-drop:hover,.file-drop.dragover{border-color:var(--accent);background:rgba(0,212,170,.05)}
+.file-drop-text{font-size:13px;color:var(--text2)}
+.file-drop-text span{color:var(--accent);font-weight:600}
+.file-input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.file-name{margin-top:8px;font-size:12px;color:var(--accent);font-family:var(--mono);font-weight:700}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.status{margin-top:16px;padding:14px;border-radius:10px;font-size:13px;line-height:1.6;display:none}
+.status.show{display:block}
+.status.success{background:rgba(0,212,170,.1);color:var(--accent);border:1px solid rgba(0,212,170,.2)}
+.status.error{background:rgba(255,107,107,.1);color:var(--coral);border:1px solid rgba(255,107,107,.2)}
+.status.info{background:rgba(255,209,102,.08);color:var(--gold);border:1px solid rgba(255,209,102,.15)}
+.steps{margin-top:20px;padding:16px;background:var(--bg2);border-radius:12px;border:1px solid rgba(255,255,255,.06)}
+.steps-title{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--accent)}
+.step{font-size:12px;color:var(--text2);padding:4px 0;line-height:1.5}
+.step b{color:var(--text)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.spinner{width:16px;height:16px;border:2px solid rgba(10,14,20,.2);border-top-color:var(--bg);border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">
+    <div class="logo-emoji">🌴</div>
+    <div class="logo-title">Deploy KBM Bali 2026</div>
+    <div class="logo-sub">Push to GitHub → Import on Vercel</div>
+  </div>
+
+  <div class="card">
+    <div class="field">
+      <div class="label">GitHub Personal Access Token</div>
+      <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxx">
+      <div style="font-size:10px;color:var(--text3);margin-top:4px">
+        Get one at <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens</a> → check <b>repo</b> scope
+      </div>
+    </div>
+    <div class="field">
+      <div class="label">Repo Name</div>
+      <input type="text" id="repo" value="kbm-bali-2026">
+    </div>
+    <div class="field">
+      <div class="label">Upload index.html</div>
+      <div class="file-drop" id="fileDrop">
+        <input type="file" class="file-input" id="fileInput" accept=".html">
+        <div class="file-drop-text">📁 <span>Choose file</span> or drag & drop</div>
+        <div class="file-name" id="fileName"></div>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="deployBtn" onclick="deploy()" disabled>
+      🚀 Push to GitHub
+    </button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="steps">
+    <div class="steps-title">After pushing:</div>
+    <div class="step">1. Go back to your <b>Vercel New Project</b> page</div>
+    <div class="step">2. <b>kbm-bali-2026</b> will appear in your repo list</div>
+    <div class="step">3. Click <b>Import</b> → <b>Deploy</b></div>
+    <div class="step">4. Live at <b>kbm-bali-2026.vercel.app</b> 🌴</div>
+  </div>
+</div>
+
+<script>
+let fileContent = null;
+let fileB64 = null;
+
+const fileInput = document.getElementById('fileInput');
+const fileDrop = document.getElementById('fileDrop');
+const fileName = document.getElementById('fileName');
+const deployBtn = document.getElementById('deployBtn');
+
+fileInput.addEventListener('change', handleFile);
+fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('dragover'); });
+fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
+fileDrop.addEventListener('drop', e => { e.preventDefault(); fileDrop.classList.remove('dragover'); if(e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); });
+
+function handleFile(e) { if(e.target.files[0]) processFile(e.target.files[0]); }
+
+function processFile(file) {
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    fileB64 = e.target.result.split(',')[1];
+    fileName.textContent = '✅ ' + file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)';
+    checkReady();
+  };
+  reader.readAsDataURL(file);
+}
+
+document.getElementById('token').addEventListener('input', checkReady);
+function checkReady() {
+  deployBtn.disabled = !(document.getElementById('token').value.trim() && fileB64);
+}
+
+function showStatus(msg, type) {
+  const s = document.getElementById('status');
+  s.innerHTML = msg;
+  s.className = 'status show ' + type;
+}
+
+async function deploy() {
+  const token = document.getElementById('token').value.trim();
+  const repo = document.getElementById('repo').value.trim() || 'kbm-bali-2026';
+  
+  if (!token || !fileB64) return;
+  
+  deployBtn.disabled = true;
+  deployBtn.innerHTML = '<span class="spinner"></span> Creating repo...';
+  
+  const headers = {
+    'Authorization': 'token ' + token,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json'
+  };
+  
+  try {
+    // Step 1: Create repo
+    showStatus('📦 Creating repo <b>Saragloworld/' + repo + '</b>...', 'info');
+    
+    const createResp = await fetch('https://api.github.com/user/repos', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        name: repo,
+        description: 'KBM Bali 2026 🌴 Boys Trip App',
+        private: false,
+        auto_init: false
+      })
+    });
+    
+    if (!createResp.ok) {
+      const err = await createResp.json();
+      if (err.errors && err.errors[0]?.message?.includes('already exists')) {
+        showStatus('⚠️ Repo already exists — will update the file.', 'info');
+      } else {
+        throw new Error(err.message || 'Failed to create repo');
+      }
+    }
+    
+    // Small delay for GitHub to register
+    await new Promise(r => setTimeout(r, 1500));
+    
+    // Step 2: Get owner username
+    const userResp = await fetch('https://api.github.com/user', { headers });
+    const user = await userResp.json();
+    const owner = user.login;
+    
+    // Step 3: Check if file exists (for update)
+    deployBtn.innerHTML = '<span class="spinner"></span> Uploading file...';
+    showStatus('📤 Uploading <b>index.html</b>...', 'info');
+    
+    let sha = null;
+    try {
+      const existing = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, { headers });
+      if (existing.ok) {
+        const data = await existing.json();
+        sha = data.sha;
+      }
+    } catch(e) {}
+    
+    // Step 4: Push index.html
+    const pushBody = {
+      message: sha ? 'Update KBM Bali 2026 app' : 'Initial deploy: KBM Bali 2026 🌴',
+      content: fileB64
+    };
+    if (sha) pushBody.sha = sha;
+    
+    const pushResp = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(pushBody)
+    });
+    
+    if (!pushResp.ok) {
+      const err = await pushResp.json();
+      throw new Error(err.message || 'Failed to push file');
+    }
+    
+    // Done!
+    deployBtn.innerHTML = '✅ Pushed!';
+    showStatus(
+      '🎉 <b>Done!</b> File pushed to <a href="https://github.com/' + owner + '/' + repo + '" target="_blank">github.com/' + owner + '/' + repo + '</a><br><br>' +
+      '👉 Now go to <a href="https://vercel.com/new" target="_blank"><b>Vercel → New Project</b></a><br>' +
+      '→ You\'ll see <b>' + repo + '</b> in your repo list<br>' +
+      '→ Click <b>Import</b> → <b>Deploy</b><br><br>' +
+      '🌴 Live at <b>' + repo + '.vercel.app</b>',
+      'success'
+    );
+    
+    setTimeout(() => {
+      deployBtn.innerHTML = '🚀 Push to GitHub';
+      deployBtn.disabled = false;
+    }, 3000);
+    
+  } catch(err) {
+    showStatus('❌ Error: ' + err.message, 'error');
+    deployBtn.innerHTML = '🚀 Push to GitHub';
+    deployBtn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
