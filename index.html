@@ -2,229 +2,460 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Deploy KBM Bali 2026 → GitHub</title>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0a0e14">
+<title>KBM Bali 2026 🌴</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#0a0e14;--bg2:#111820;--bg3:#1a2232;--accent:#00d4aa;--coral:#ff6b6b;--gold:#ffd166;--text:#e8ecf2;--text2:#8899aa;--text3:#556677;--font:'Sora',sans-serif;--mono:'Space Mono',monospace}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.container{max-width:480px;width:100%}
-.logo{text-align:center;margin-bottom:32px}
-.logo-emoji{font-size:48px;margin-bottom:8px}
-.logo-title{font-size:24px;font-weight:700;letter-spacing:-.5px}
-.logo-sub{font-size:13px;color:var(--text2);margin-top:4px}
-.card{background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:24px;margin-bottom:16px}
-.field{margin-bottom:16px}
-.label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
-input[type=text],input[type=password]{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:var(--bg3);color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:border-color .2s}
-input:focus{border-color:var(--accent)}
-input::placeholder{color:var(--text3)}
-.file-drop{border:2px dashed rgba(255,255,255,.1);border-radius:12px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.file-drop:hover,.file-drop.dragover{border-color:var(--accent);background:rgba(0,212,170,.05)}
-.file-drop-text{font-size:13px;color:var(--text2)}
-.file-drop-text span{color:var(--accent);font-weight:600}
-.file-input{position:absolute;inset:0;opacity:0;cursor:pointer}
-.file-name{margin-top:8px;font-size:12px;color:var(--accent);font-family:var(--mono);font-weight:700}
-.btn{width:100%;padding:14px;border-radius:12px;border:none;font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn:active{transform:scale(.97)}
-.btn-primary{background:var(--accent);color:var(--bg)}
-.btn-primary:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.status{margin-top:16px;padding:14px;border-radius:10px;font-size:13px;line-height:1.6;display:none}
-.status.show{display:block}
-.status.success{background:rgba(0,212,170,.1);color:var(--accent);border:1px solid rgba(0,212,170,.2)}
-.status.error{background:rgba(255,107,107,.1);color:var(--coral);border:1px solid rgba(255,107,107,.2)}
-.status.info{background:rgba(255,209,102,.08);color:var(--gold);border:1px solid rgba(255,209,102,.15)}
-.steps{margin-top:20px;padding:16px;background:var(--bg2);border-radius:12px;border:1px solid rgba(255,255,255,.06)}
-.steps-title{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--accent)}
-.step{font-size:12px;color:var(--text2);padding:4px 0;line-height:1.5}
-.step b{color:var(--text)}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-.spinner{width:16px;height:16px;border:2px solid rgba(10,14,20,.2);border-top-color:var(--bg);border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg:#0a0e14;--bg2:#111820;--bg3:#1a2232;--bg4:#222d3d;--text:#e8ecf2;--text2:#8899aa;--text3:#556677;--accent:#00d4aa;--accent-glow:rgba(0,212,170,.15);--gold:#ffd166;--coral:#ff6b6b;--sky:#4ecdc4;--purple:#a29bfe;--radius:16px;--radius-sm:10px;--font:'Sora',sans-serif;--mono:'Space Mono',monospace;--safe-b:env(safe-area-inset-bottom,0px)}
+html,body{font-family:var(--font);background:var(--bg);color:var(--text);height:100%;overflow:hidden;-webkit-font-smoothing:antialiased}
+.app{display:flex;flex-direction:column;height:100dvh;max-width:430px;margin:0 auto;position:relative;overflow:hidden}
+.screens{flex:1;overflow:hidden;position:relative}
+.screen{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;padding:0 16px 100px;opacity:0;transform:translateY(12px);pointer-events:none;transition:all .3s cubic-bezier(.4,0,.2,1);-webkit-overflow-scrolling:touch}
+.screen.active{opacity:1;transform:translateY(0);pointer-events:auto}.screen::-webkit-scrollbar{display:none}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(10,14,20,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.05);padding:12px 16px;margin:0 -16px 16px;display:flex;align-items:center;gap:12px}
+.back-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:var(--bg3);border:1px solid rgba(255,255,255,.06);color:var(--text);font-size:18px;cursor:pointer;transition:all .15s;flex-shrink:0;font-family:var(--font)}.back-btn:active{transform:scale(.9);background:var(--bg4)}
+.topbar-text{flex:1}.topbar-title{font-size:18px;font-weight:700;letter-spacing:-.3px}.topbar-sub{font-size:11px;color:var(--text2);margin-top:1px}
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(10,14,20,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.06);display:flex;padding:8px 4px calc(8px + var(--safe-b));z-index:100}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;background:none;border:none;color:var(--text3);font-family:var(--font);font-size:10px;font-weight:500;cursor:pointer;transition:all .2s;position:relative}
+.nav-btn.active{color:var(--accent)}.nav-btn.active::before{content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:20px;height:3px;background:var(--accent);border-radius:0 0 4px 4px}
+.nav-icon{font-size:20px;line-height:1}
+.card{background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.3px}
+.chip-green{background:rgba(0,212,170,.12);color:var(--accent)}.chip-sky{background:rgba(78,205,196,.12);color:var(--sky)}.chip-coral{background:rgba(255,107,107,.12);color:var(--coral)}
+.hero{text-align:center;padding:24px 0;position:relative}.hero::before{content:'';position:absolute;top:-20px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,var(--accent-glow) 0%,transparent 70%);pointer-events:none}
+.hero-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.hero-num{font-family:var(--mono);font-size:84px;font-weight:700;line-height:1;background:linear-gradient(135deg,var(--accent),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-unit{font-size:16px;color:var(--text2);margin-top:8px}.hero-trip{font-size:13px;color:var(--text3);margin-top:16px;font-family:var(--mono)}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.quick-card{background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius-sm);padding:14px;text-align:center;cursor:pointer;transition:all .2s}.quick-card:active{transform:scale(.96);background:var(--bg3)}
+.quick-icon{font-size:28px;margin-bottom:6px}.quick-label{font-size:12px;color:var(--text2);font-weight:500}.quick-val{font-size:15px;font-weight:600;margin-top:2px}
+.squad-row{display:flex;gap:12px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none}.squad-row::-webkit-scrollbar{display:none}
+.squad-av{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:62px;cursor:pointer;position:relative}.squad-av:active .squad-circle{transform:scale(.9)}
+.squad-circle{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;border:2px solid var(--bg3);transition:transform .15s}
+.squad-name{font-size:10px;color:var(--text2);font-weight:500;white-space:nowrap}
+.squad-edit-hint{position:absolute;top:-2px;right:-2px;width:16px;height:16px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--bg);border:2px solid var(--bg)}
+.flight-card{background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.flight-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.flight-pax{font-size:14px;font-weight:600}
+.flight-route{display:flex;align-items:center;gap:8px;margin-bottom:14px}.flight-point{text-align:center;flex:0 0 auto}
+.flight-code{font-family:var(--mono);font-size:20px;font-weight:700}.flight-city{font-size:10px;color:var(--text3);margin-top:2px}
+.flight-time{font-size:12px;color:var(--text2);margin-top:4px;font-family:var(--mono)}.flight-tz{font-size:9px;color:var(--text3);font-family:var(--mono)}
+.flight-line{flex:1;height:1px;background:linear-gradient(90deg,var(--bg4),var(--accent),var(--bg4));position:relative}
+.flight-line::after{content:'✈';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px;background:var(--bg2);padding:0 6px}
+.flight-meta{display:flex;gap:12px;flex-wrap:wrap}.flight-tag{font-size:11px;color:var(--text3)}.flight-tag span{color:var(--text2);font-weight:500}
+.day-header{display:flex;align-items:center;gap:10px;margin:20px 0 12px}.day-header:first-child{margin-top:0}
+.day-badge{background:var(--accent);color:var(--bg);font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;white-space:nowrap}.day-date{font-size:13px;color:var(--text2)}
+.tl-item{display:flex;gap:12px;margin-bottom:2px}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:52px;flex-shrink:0}
+.tl-time{font-family:var(--mono);font-size:11px;color:var(--text3);white-space:nowrap;text-align:center}
+.tl-tz{font-family:var(--mono);font-size:8px;color:var(--text3);opacity:.7}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--bg3);border:2px solid var(--accent);margin:4px 0 0}
+.tl-line{width:2px;flex:1;background:var(--bg3);margin-top:2px;min-height:20px}
+.tl-body{flex:1;background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius-sm);padding:12px;margin-bottom:10px;position:relative}
+.tl-title{font-size:14px;font-weight:600;margin-bottom:4px;padding-right:30px}.tl-loc{font-size:12px;color:var(--text3);margin-bottom:8px}
+.tl-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:8px}
+.tl-actions{display:flex;gap:6px}
+.tl-btn{padding:6px 12px;border-radius:8px;border:none;font-size:11px;font-weight:600;font-family:var(--font);cursor:pointer;transition:all .2s}.tl-btn:active{transform:scale(.95)}
+.tl-btn-map{background:rgba(0,212,170,.12);color:var(--accent)}.tl-btn-grab{background:rgba(78,205,196,.12);color:var(--sky)}
+.tl-del{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:6px;background:rgba(255,107,107,.1);border:none;color:var(--coral);font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center}.tl-del:active{background:rgba(255,107,107,.25)}
+.expense-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px}
+.exp-stat{background:var(--bg2);border-radius:var(--radius-sm);padding:14px 10px;text-align:center}
+.exp-stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.exp-stat-val{font-family:var(--mono);font-size:18px;font-weight:700}
+.exp-item{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04);position:relative}
+.exp-icon{font-size:24px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:var(--bg3);border-radius:10px;flex-shrink:0}
+.exp-info{flex:1;min-width:0}.exp-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.exp-by{font-size:11px;color:var(--text3);margin-top:2px}
+.exp-amt{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--gold);white-space:nowrap}
+.exp-actions{display:flex;gap:4px;margin-left:6px;flex-shrink:0}
+.exp-act-btn{width:28px;height:28px;border-radius:6px;border:none;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.exp-edit{background:rgba(78,205,196,.1);color:var(--sky)}.exp-del{background:rgba(255,107,107,.1);color:var(--coral)}
+.exp-act-btn:active{transform:scale(.9)}
+.add-btn{width:100%;padding:14px;border-radius:var(--radius-sm);border:2px dashed var(--bg4);background:transparent;color:var(--text2);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;margin-top:8px}.add-btn:active{background:var(--bg3);border-color:var(--accent)}
+.settle-section{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.06)}
+.settle-title{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.settle-card{background:var(--bg3);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.settle-arrow{color:var(--accent);font-weight:700;font-size:14px}
+.settle-name{font-size:13px;font-weight:600;min-width:0;white-space:nowrap}
+.settle-amt{font-family:var(--mono);font-size:14px;font-weight:700;color:var(--gold);margin-left:auto;white-space:nowrap}
+.settle-done{color:var(--accent);font-size:13px;text-align:center;padding:16px;font-weight:500}
+.loc-card{background:var(--bg2);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);overflow:hidden;margin-bottom:12px}
+.loc-banner{height:52px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--bg3)}
+.loc-body{padding:14px}.loc-name{font-size:14px;font-weight:600;margin-bottom:2px}.loc-addr{font-size:11px;color:var(--text3);margin-bottom:10px}
+.loc-btns{display:flex;gap:6px}
+.loc-btn{padding:8px 14px;border-radius:8px;border:none;font-size:11px;font-weight:600;font-family:var(--font);cursor:pointer;flex:1;text-align:center;transition:all .2s}.loc-btn:active{transform:scale(.95)}
+.loc-btn-map{background:rgba(0,212,170,.12);color:var(--accent)}.loc-btn-grab{background:rgba(78,205,196,.12);color:var(--sky)}
+.info-section{margin-bottom:20px}.info-title{font-size:13px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.info-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.info-label{font-size:13px;color:var(--text2)}.info-val{font-size:13px;font-weight:500;text-align:right;max-width:55%}.info-val a{color:var(--accent);text-decoration:none}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:24px 20px calc(24px + var(--safe-b));animation:slideUp .3s ease;max-height:90vh;overflow-y:auto}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-title{font-size:18px;font-weight:700;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center}
+.modal-close{width:32px;height:32px;border-radius:50%;background:var(--bg3);border:none;color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}.modal-close:active{background:var(--bg4)}
+.modal-field{margin-bottom:14px}
+.modal-label{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.modal-input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid var(--bg4);background:var(--bg3);color:var(--text);font-family:var(--font);font-size:14px;outline:none;transition:border-color .2s}.modal-input:focus{border-color:var(--accent)}.modal-input::placeholder{color:var(--text3)}
+.modal-cats{display:flex;gap:8px;flex-wrap:wrap}
+.modal-cat{padding:8px 14px;border-radius:8px;background:var(--bg3);border:2px solid transparent;font-size:16px;cursor:pointer;transition:all .2s}.modal-cat.selected{border-color:var(--accent);background:var(--accent-glow)}
+.modal-submit{width:100%;padding:14px;border-radius:12px;border:none;background:var(--accent);color:var(--bg);font-family:var(--font);font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;transition:all .2s}.modal-submit:active{transform:scale(.97);opacity:.9}
+.modal-submit-secondary{width:100%;padding:12px;border-radius:10px;border:1px solid var(--bg4);background:var(--bg3);color:var(--text2);font-family:var(--font);font-size:13px;font-weight:600;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s}.modal-submit-secondary:active{background:var(--bg4)}
+.receipt-preview{width:100%;max-height:120px;object-fit:cover;border-radius:10px;margin-top:8px;border:1px solid var(--bg4)}
+.scanning-indicator{display:flex;align-items:center;gap:8px;padding:12px;background:rgba(0,212,170,.08);border-radius:10px;margin-top:8px;font-size:12px;color:var(--accent);font-weight:500}
+.scanning-indicator .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:500;display:none;align-items:center;justify-content:center}
+.confirm-overlay.open{display:flex}
+.confirm-box{background:var(--bg2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:24px;width:calc(100% - 48px);max-width:340px;text-align:center;animation:slideUp .2s ease}
+.confirm-msg{font-size:14px;font-weight:500;margin-bottom:20px;line-height:1.5;color:var(--text)}
+.confirm-btns{display:flex;gap:10px}
+.confirm-btn{flex:1;padding:12px;border-radius:10px;border:none;font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.confirm-btn:active{transform:scale(.95)}
+.confirm-cancel{background:var(--bg3);color:var(--text2)}
+.confirm-yes{background:var(--coral);color:#fff}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg3);color:var(--text);padding:10px 20px;border-radius:10px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;z-index:400;pointer-events:none;border:1px solid rgba(255,255,255,.08)}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="logo">
-    <div class="logo-emoji">🌴</div>
-    <div class="logo-title">Deploy KBM Bali 2026</div>
-    <div class="logo-sub">Push to GitHub → Import on Vercel</div>
-  </div>
-
-  <div class="card">
-    <div class="field">
-      <div class="label">GitHub Personal Access Token</div>
-      <input type="password" id="token" placeholder="ghp_xxxxxxxxxxxx">
-      <div style="font-size:10px;color:var(--text3);margin-top:4px">
-        Get one at <a href="https://github.com/settings/tokens/new" target="_blank">github.com/settings/tokens</a> → check <b>repo</b> scope
+<div class="app">
+  <div class="screens">
+    <!-- DASHBOARD -->
+    <div class="screen active" id="s-dash">
+      <div class="hero"><div class="hero-label">KBM BALI 2026</div><div class="hero-num" id="heroNum">3</div><div class="hero-unit" id="heroUnit">days to departure</div><div class="hero-trip">9 – 13 APR 2026 · KUTA UTARA</div></div>
+      <div style="margin-bottom:16px"><div style="font-size:14px;font-weight:600;margin-bottom:4px">The Squad <span style="font-size:11px;color:var(--text3);font-weight:400">tap to edit</span></div><div class="squad-row" id="squadRow"></div></div>
+      <div class="quick-grid">
+        <div class="quick-card" onclick="go('flights')"><div class="quick-icon">✈️</div><div class="quick-label">Flights</div><div class="quick-val">7 legs</div></div>
+        <div class="quick-card" onclick="go('itinerary')"><div class="quick-icon">🗓️</div><div class="quick-label">Itinerary</div><div class="quick-val">5 days</div></div>
+        <div class="quick-card" onclick="go('expenses')"><div class="quick-icon">💰</div><div class="quick-label">Expenses</div><div class="quick-val" id="dashTotal">S$0</div></div>
+        <div class="quick-card" onclick="go('info')"><div class="quick-icon">📋</div><div class="quick-label">Info</div><div class="quick-val">Emergency</div></div>
+      </div>
+      <div class="card" style="background:linear-gradient(135deg,rgba(0,212,170,.08),rgba(78,205,196,.05));border-color:rgba(0,212,170,.15)">
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px">🌴 Villa – Kuta Utara</div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.6">Airbnb · 5 guests · 4 nights<br>Check-in: <span style="color:var(--text);font-weight:500">Wed 9 Apr, 2:00 PM WITA</span><br>Check-out: <span style="color:var(--text);font-weight:500">Sun 13 Apr, 11:00 AM WITA</span><br><span style="color:var(--gold);font-weight:600">S$1,405.88</span> <span style="color:var(--text3)">(S$281.18/person)</span></div>
       </div>
     </div>
-    <div class="field">
-      <div class="label">Repo Name</div>
-      <input type="text" id="repo" value="kbm-bali-2026">
+    <!-- FLIGHTS -->
+    <div class="screen" id="s-flights"><div class="topbar"><button class="back-btn" onclick="go('dash')">←</button><div class="topbar-text"><div class="topbar-title">✈️ Flights</div><div class="topbar-sub">Ordered by Bali arrival · local times</div></div></div><div id="flightsList"></div></div>
+    <!-- ITINERARY -->
+    <div class="screen" id="s-itinerary"><div class="topbar"><button class="back-btn" onclick="go('dash')">←</button><div class="topbar-text"><div class="topbar-title">🗓️ Itinerary</div><div class="topbar-sub">Tap ✕ to remove · + to add</div></div></div><div id="itineraryList"></div></div>
+    <!-- EXPENSES -->
+    <div class="screen" id="s-expenses"><div class="topbar"><button class="back-btn" onclick="go('dash')">←</button><div class="topbar-text"><div class="topbar-title">💰 Expenses</div><div class="topbar-sub">Split across 5 · edit/delete any item</div></div></div>
+      <div class="expense-summary"><div class="exp-stat"><div class="exp-stat-label">Total</div><div class="exp-stat-val" id="expTotal" style="color:var(--gold)">S$0</div></div><div class="exp-stat"><div class="exp-stat-label">Per Head</div><div class="exp-stat-val" id="expPP" style="color:var(--accent)">S$0</div></div><div class="exp-stat"><div class="exp-stat-label">Items</div><div class="exp-stat-val" id="expCount">0</div></div></div>
+      <div id="expenseList"></div>
+      <button class="add-btn" onclick="openExpModal()">+ Add Expense</button>
+      <button class="add-btn" onclick="openReceiptScan()" style="margin-top:6px;border-color:var(--accent);color:var(--accent)">📸 Scan Receipt</button>
+      <div id="settleSection"></div>
     </div>
-    <div class="field">
-      <div class="label">Upload index.html</div>
-      <div class="file-drop" id="fileDrop">
-        <input type="file" class="file-input" id="fileInput" accept=".html">
-        <div class="file-drop-text">📁 <span>Choose file</span> or drag & drop</div>
-        <div class="file-name" id="fileName"></div>
-      </div>
+    <!-- LOCATIONS -->
+    <div class="screen" id="s-locations"><div class="topbar"><button class="back-btn" onclick="go('dash')">←</button><div class="topbar-text"><div class="topbar-title">📍 Key Locations</div><div class="topbar-sub">Tap to open in Maps or Grab</div></div></div><div id="locationList"></div></div>
+    <!-- INFO -->
+    <div class="screen" id="s-info"><div class="topbar"><button class="back-btn" onclick="go('dash')">←</button><div class="topbar-text"><div class="topbar-title">📋 Trip Info</div><div class="topbar-sub">Emergency contacts & essentials</div></div></div>
+      <div class="info-section"><div class="info-title">🏠 Accommodation</div><div class="info-row"><div class="info-label">Villa</div><div class="info-val">Airbnb – Kuta Utara</div></div><div class="info-row"><div class="info-label">Check-in</div><div class="info-val">Wed 9 Apr, 2:00 PM WITA</div></div><div class="info-row"><div class="info-label">Check-out</div><div class="info-val">Sun 13 Apr, 11:00 AM WITA</div></div><div class="info-row"><div class="info-label">Cost</div><div class="info-val" style="color:var(--gold)">S$1,405.88</div></div><div class="info-row"><div class="info-label">Per Person</div><div class="info-val">S$281.18</div></div></div>
+      <div class="info-section"><div class="info-title">🚨 Emergency</div><div class="info-row"><div class="info-label">Police</div><div class="info-val"><a href="tel:110">110</a></div></div><div class="info-row"><div class="info-label">Ambulance</div><div class="info-val"><a href="tel:118">118</a></div></div><div class="info-row"><div class="info-label">Tourist Police</div><div class="info-val"><a href="tel:+623618224111">+62 361 822 4111</a></div></div><div class="info-row"><div class="info-label">BIMC Hospital</div><div class="info-val"><a href="tel:+623617611263">+62 361 761 263</a></div></div><div class="info-row"><div class="info-label">SG Embassy</div><div class="info-val"><a href="tel:+622129951498">+62 21 2995 1498</a></div></div><div class="info-row"><div class="info-label">SG MFA 24hr</div><div class="info-val"><a href="tel:+6563798800">+65 6379 8800</a></div></div></div>
+      <div class="info-section"><div class="info-title">💡 Essentials</div><div class="info-row"><div class="info-label">Currency</div><div class="info-val">IDR (~12,200/SGD)</div></div><div class="info-row"><div class="info-label">SG↔Bali</div><div class="info-val">Same! UTC+8</div></div><div class="info-row"><div class="info-label">Adelaide</div><div class="info-val">UTC+9:30 (+1.5h)</div></div><div class="info-row"><div class="info-label">Perth</div><div class="info-val">UTC+8 (=Bali)</div></div><div class="info-row"><div class="info-label">Plug</div><div class="info-val">Type C/F (EU)</div></div><div class="info-row"><div class="info-label">SIM</div><div class="info-val">Telkomsel at DPS</div></div><div class="info-row"><div class="info-label">Ride</div><div class="info-val">Grab + GoJek</div></div></div>
+      <div class="info-section"><div class="info-title">👥 Squad</div><div id="infoSquad"></div></div>
     </div>
-    <button class="btn btn-primary" id="deployBtn" onclick="deploy()" disabled>
-      🚀 Push to GitHub
-    </button>
-    <div class="status" id="status"></div>
   </div>
-
-  <div class="steps">
-    <div class="steps-title">After pushing:</div>
-    <div class="step">1. Go back to your <b>Vercel New Project</b> page</div>
-    <div class="step">2. <b>kbm-bali-2026</b> will appear in your repo list</div>
-    <div class="step">3. Click <b>Import</b> → <b>Deploy</b></div>
-    <div class="step">4. Live at <b>kbm-bali-2026.vercel.app</b> 🌴</div>
-  </div>
+  <nav class="nav">
+    <button class="nav-btn active" data-tab="dash"><span class="nav-icon">🏠</span>Home</button>
+    <button class="nav-btn" data-tab="flights"><span class="nav-icon">✈️</span>Flights</button>
+    <button class="nav-btn" data-tab="itinerary"><span class="nav-icon">🗓️</span>Plan</button>
+    <button class="nav-btn" data-tab="expenses"><span class="nav-icon">💰</span>Split</button>
+    <button class="nav-btn" data-tab="locations"><span class="nav-icon">📍</span>Places</button>
+    <button class="nav-btn" data-tab="info"><span class="nav-icon">📋</span>Info</button>
+  </nav>
 </div>
-
+<!-- EXPENSE MODAL -->
+<div class="modal-overlay" id="expModal"><div class="modal">
+  <div class="modal-title"><span id="expModalTitle">Add Expense</span><button class="modal-close" onclick="closeExpModal()">✕</button></div>
+  <div class="modal-field"><div class="modal-label">What's it for?</div><input class="modal-input" id="mExpName" placeholder="e.g. Dinner at La Favela" autocomplete="off"></div>
+  <div class="modal-field"><div class="modal-label">Amount (SGD)</div><input class="modal-input" id="mExpAmt" type="number" step="0.01" placeholder="0.00" inputmode="decimal"></div>
+  <div class="modal-field"><div class="modal-label">Category</div><div class="modal-cats" id="mExpCats"></div></div>
+  <div class="modal-field"><div class="modal-label">Paid by</div><div class="modal-cats" id="mExpPaidBy"></div></div>
+  <div id="receiptArea"></div>
+  <button class="modal-submit" id="expModalBtn" onclick="submitExpense()">Add Expense</button>
+</div></div>
+<!-- RECEIPT SCAN MODAL -->
+<div class="modal-overlay" id="receiptModal"><div class="modal">
+  <div class="modal-title">📸 Scan Receipt<button class="modal-close" onclick="closeReceiptModal()">✕</button></div>
+  <div class="modal-field"><div class="modal-label">Take a photo or upload receipt</div>
+    <input type="file" id="receiptFile" accept="image/*" capture="environment" style="display:none" onchange="handleReceipt(this)">
+    <button class="modal-submit-secondary" onclick="document.getElementById('receiptFile').click()">📷 Choose Photo</button>
+    <div id="receiptPreview"></div>
+    <div id="scanStatus"></div>
+  </div>
+</div></div>
+<!-- SQUAD EDIT MODAL -->
+<div class="modal-overlay" id="squadModal"><div class="modal">
+  <div class="modal-title">Edit Profile<button class="modal-close" onclick="closeSquadModal()">✕</button></div>
+  <div style="display:flex;justify-content:center;margin-bottom:20px"><div class="squad-circle" id="smPreview" style="width:64px;height:64px;font-size:24px;border-width:3px"></div></div>
+  <div class="modal-field"><div class="modal-label">Icon Letters (1-3)</div><input class="modal-input" id="smInit" placeholder="SC" maxlength="3" autocomplete="off" style="text-align:center;font-weight:700;font-size:18px;letter-spacing:2px"></div>
+  <div class="modal-field"><div class="modal-label">Nickname</div><input class="modal-input" id="smNick" placeholder="Sara" autocomplete="off"></div>
+  <div class="modal-field"><div class="modal-label">Color</div><div class="modal-cats" id="smColors"></div></div>
+  <button class="modal-submit" onclick="saveSquadEdit()">Save Changes</button>
+</div></div>
+<!-- ITINERARY ADD MODAL -->
+<div class="modal-overlay" id="itinModal"><div class="modal">
+  <div class="modal-title">Add Activity<button class="modal-close" onclick="closeItinModal()">✕</button></div>
+  <div class="modal-field"><div class="modal-label">Day</div><select class="modal-input" id="iDay" style="appearance:auto"></select></div>
+  <div class="modal-field"><div class="modal-label">Time (e.g. 3:00 PM)</div><input class="modal-input" id="iTime" placeholder="3:00 PM" autocomplete="off"></div>
+  <div class="modal-field"><div class="modal-label">Title</div><input class="modal-input" id="iTitle" placeholder="e.g. 🍹 Beach Bar" autocomplete="off"></div>
+  <div class="modal-field"><div class="modal-label">Location</div><input class="modal-input" id="iLoc" placeholder="e.g. Seminyak" autocomplete="off"></div>
+  <div class="modal-field"><div class="modal-label">Notes (optional)</div><input class="modal-input" id="iDesc" placeholder="" autocomplete="off"></div>
+  <button class="modal-submit" onclick="submitItinItem()">Add to Itinerary</button>
+</div></div>
+<div class="confirm-overlay" id="confirmOverlay"><div class="confirm-box"><div class="confirm-msg" id="confirmMsg"></div><div class="confirm-btns"><button class="confirm-btn confirm-cancel" onclick="confirmNo()">Cancel</button><button class="confirm-btn confirm-yes" onclick="confirmYes()">Delete</button></div></div></div>
+<div class="toast" id="toast"></div>
 <script>
-let fileContent = null;
-let fileB64 = null;
+const TRIP_START=new Date('2026-04-09T10:15:00+08:00');
+const SQUAD_COLORS=['#00d4aa','#4ecdc4','#ffd166','#a29bfe','#ff6b6b','#ff9ff3','#54a0ff','#5f27cd','#01a3a4','#f368e0','#ee5a24','#c8d6e5'];
+const CATEGORIES=['🍽️','🍻','🚗','🎫','💆','🏠','🛍️','💰'];
+const SQUAD_DEFAULT=[
+  {name:'Saravana',init:'SC',color:'#00d4aa',flag:'🇸🇬',city:'SIN',airline:'Scoot TR 288'},
+  {name:'Ghouse',init:'GM',color:'#4ecdc4',flag:'🇸🇬',city:'SIN',airline:'Scoot TR 288'},
+  {name:'Kumaran',init:'KR',color:'#ffd166',flag:'🇸🇬',city:'SIN',airline:'Scoot TR 288'},
+  {name:'Viknesvaran',init:'VS',color:'#a29bfe',flag:'🇦🇺',city:'ADL',airline:'Jetstar JQ 125'},
+  {name:'Pravin',init:'PL',color:'#ff6b6b',flag:'🇦🇺',city:'PER',airline:'Jetstar JQ 110'}
+];
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function loadSquad(){const s=lsGet('kbm_squad');if(s){try{const p=JSON.parse(s);return SQUAD_DEFAULT.map((d,i)=>({...d,name:p[i]?.name||d.name,init:p[i]?.init||d.init,color:p[i]?.color||d.color}))}catch(e){}}return SQUAD_DEFAULT.map(d=>({...d}))}
+function saveSquad(){lsSet('kbm_squad',JSON.stringify(SQUAD.map(s=>({name:s.name,init:s.init,color:s.color}))))}
+let SQUAD=loadSquad();
+let editingIdx=-1,editColor='',selectedCat='🍽️',selectedPayer='',editingExpIdx=-1;
+function N(i){return SQUAD[i].name}
+function sinBoys(){return N(0)+' · '+N(1)+' · '+N(2)}
 
-const fileInput = document.getElementById('fileInput');
-const fileDrop = document.getElementById('fileDrop');
-const fileName = document.getElementById('fileName');
-const deployBtn = document.getElementById('deployBtn');
+// FLIGHTS ordered by Bali arrival time
+function getFlights(){return[
+  {section:'Outbound · 9 Apr (by Bali arrival)',color:'var(--accent)',flights:[
+    {pax:N(3),chip:'Arrives 10:10',chipClass:'chip-green',from:{code:'ADL',city:'Adelaide',time:'6:15 AM',tz:'ACST (UTC+9:30)'},to:{code:'DPS',city:'Bali',time:'10:10 AM',tz:'WITA (UTC+8)'},tags:['✈️ Jetstar JQ 125']},
+    {pax:N(4),chip:'Arrives 10:30',chipClass:'chip-green',from:{code:'PER',city:'Perth',time:'6:50 AM',tz:'AWST (UTC+8)'},to:{code:'DPS',city:'Bali',time:'10:30 AM',tz:'WITA (UTC+8)'},tags:['✈️ Jetstar JQ 110']},
+    {pax:sinBoys(),chip:'Arrives 1:05',chipClass:'chip-green',from:{code:'SIN',city:'Singapore',time:'10:15 AM',tz:'SGT (UTC+8)'},to:{code:'DPS',city:'Bali',time:'1:05 PM',tz:'WITA (UTC+8)'},tags:['✈️ Scoot TR 288','📋 ND3UND','🏛️ Terminal 1']}
+  ]},
+  {section:'Return · 13 Apr (by departure)',color:'var(--coral)',flights:[
+    {pax:N(3),chip:'First out',chipClass:'chip-sky',from:{code:'DPS',city:'Bali',time:'11:15 AM',tz:'WITA (UTC+8)'},to:{code:'ADL',city:'Adelaide',time:'5:35 PM',tz:'ACST (UTC+9:30)'},tags:['✈️ Jetstar JQ 126']},
+    {pax:N(4),chip:'2:55 PM',chipClass:'chip-sky',from:{code:'DPS',city:'Bali',time:'2:55 PM',tz:'WITA (UTC+8)'},to:{code:'PER',city:'Perth',time:'6:35 PM',tz:'AWST (UTC+8)'},tags:['✈️ Jetstar JQ 107']},
+    {pax:sinBoys(),chip:'5:35 PM',chipClass:'chip-sky',from:{code:'DPS',city:'Bali',time:'5:35 PM',tz:'WITA (UTC+8)'},to:{code:'SIN',city:'Singapore',time:'8:20 PM',tz:'SGT (UTC+8)'},tags:['✈️ Scoot TR 295','📋 ND3UND']}
+  ]}
+]}
 
-fileInput.addEventListener('change', handleFile);
-fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('dragover'); });
-fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
-fileDrop.addEventListener('drop', e => { e.preventDefault(); fileDrop.classList.remove('dragover'); if(e.dataTransfer.files[0]) processFile(e.dataTransfer.files[0]); });
+// ITINERARY (mutable)
+let itinerary=[
+  {day:0,items:[
+    {time:'6:15 AM',tz:'ACST',title:'✈️ '+N(3)+' departs ADL',loc:'Adelaide Airport',desc:'Jetstar JQ 125',fixed:true},
+    {time:'6:50 AM',tz:'AWST',title:'✈️ '+N(4)+' departs PER',loc:'Perth Airport',desc:'Jetstar JQ 110',fixed:true},
+    {time:'10:10 AM',tz:'WITA',title:'🛬 '+N(3)+' lands DPS',loc:'Ngurah Rai Airport',desc:'First to arrive!',fixed:true},
+    {time:'10:15 AM',tz:'SGT',title:'✈️ SIN boys depart',loc:'Changi T1',desc:'Scoot TR 288 — '+sinBoys(),fixed:true},
+    {time:'10:30 AM',tz:'WITA',title:'🛬 '+N(4)+' lands DPS',loc:'Ngurah Rai Airport',desc:'',fixed:true},
+    {time:'1:05 PM',tz:'WITA',title:'🛬 SIN boys land DPS',loc:'Ngurah Rai Airport',desc:'Whole squad in Bali! 🔥',fixed:true},
+    {time:'2:00 PM',tz:'WITA',title:'🏠 Villa Check-in',loc:'Kuta Utara',desc:'Settle in, freshen up'},
+    {time:'5:00 PM',tz:'WITA',title:'🌅 Sunset at Ku De Ta',loc:'Jl. Laksmana No.9, Seminyak',desc:'Welcome drinks, sunset vibes'},
+    {time:'8:00 PM',tz:'WITA',title:'🍽️ Dinner at Merah Putih',loc:'Jl. Petitenget No.100x, Seminyak',desc:'Indonesian fine dining'}
+  ]},
+  {day:1,items:[
+    {time:'9:00 AM',tz:'WITA',title:'🌾 Ubud Day Trip',loc:'Ubud, Bali',desc:'Tegalalang Rice Terrace + Ubud Market'},
+    {time:'1:00 PM',tz:'WITA',title:'🍜 Lunch in Ubud',loc:'Ubud Centre',desc:'Local warung experience'},
+    {time:'5:00 PM',tz:'WITA',title:'🎉 Potato Head Beach Club',loc:'Jl. Petitenget No.51B, Seminyak',desc:'Pool, drinks, sunset session'}
+  ]},
+  {day:2,items:[
+    {time:'7:00 AM',tz:'WITA',title:'🌊 Surf Lesson',loc:'Kuta Beach',desc:'Morning waves'},
+    {time:'12:00 PM',tz:'WITA',title:'🍔 Lunch & Chill',loc:'Villa',desc:'Recovery at villa'},
+    {time:'2:00 PM',tz:'WITA',title:'🛕 Tanah Lot Temple',loc:'Tabanan, Bali',desc:'Iconic sea temple'},
+    {time:'8:00 PM',tz:'WITA',title:'🍻 La Favela',loc:'Jl. Laksmana No.12, Seminyak',desc:'Dinner & party vibes'}
+  ]},
+  {day:3,items:[
+    {time:'10:00 AM',tz:'WITA',title:'💆 Spa – Jari Menari',loc:'Seminyak',desc:'Balinese massage'},
+    {time:'1:00 PM',tz:'WITA',title:'🏊 Villa Pool Day',loc:'Kuta Utara',desc:'Chill, BBQ, music'},
+    {time:'7:00 PM',tz:'WITA',title:'🎊 Final Night – Sardine',loc:'Jl. Petitenget No.21, Seminyak',desc:'Legendary seafood'}
+  ]},
+  {day:4,items:[
+    {time:'10:00 AM',tz:'WITA',title:'🏠 Villa Check-out',loc:'Kuta Utara',desc:'Pack up 📸',fixed:true},
+    {time:'11:15 AM',tz:'WITA',title:'✈️ '+N(3)+' departs',loc:'DPS → ADL',desc:'JQ 126 · Lands 5:35 PM ACST',fixed:true},
+    {time:'2:55 PM',tz:'WITA',title:'✈️ '+N(4)+' departs',loc:'DPS → PER',desc:'JQ 107 · Lands 6:35 PM AWST',fixed:true},
+    {time:'5:35 PM',tz:'WITA',title:'✈️ SIN boys depart',loc:'DPS → SIN',desc:'TR 295 · Lands 8:20 PM SGT',fixed:true}
+  ]}
+];
+const DAY_LABELS=['Day 1 · Wed 9 Apr','Day 2 · Thu 10 Apr','Day 3 · Fri 11 Apr','Day 4 · Sat 12 Apr','Day 5 · Sun 13 Apr'];
+const DAY_DATES=['Wed, 9 April','Thu, 10 April','Fri, 11 April','Sat, 12 April','Sun, 13 April'];
 
-function handleFile(e) { if(e.target.files[0]) processFile(e.target.files[0]); }
+const LOCATIONS=[
+  {name:'Ngurah Rai Airport (DPS)',addr:'Bali',icon:'✈️',maps:'Ngurah+Rai+International+Airport+Bali'},
+  {name:'Villa – Kuta Utara',addr:'Kuta Utara, Badung',icon:'🏠',maps:'Kuta+Utara+Bali'},
+  {name:'Ku De Ta Beach Club',addr:'Jl. Laksmana No.9, Seminyak',icon:'🌅',maps:'Ku+De+Ta+Seminyak+Bali'},
+  {name:'Merah Putih',addr:'Jl. Petitenget No.100x',icon:'🍽️',maps:'Merah+Putih+Restaurant+Bali'},
+  {name:'Tegalalang Rice Terrace',addr:'Ubud',icon:'🌾',maps:'Tegalalang+Rice+Terrace+Ubud'},
+  {name:'Potato Head Beach Club',addr:'Jl. Petitenget No.51B',icon:'🎉',maps:'Potato+Head+Beach+Club+Bali'},
+  {name:'Tanah Lot Temple',addr:'Tabanan',icon:'🛕',maps:'Tanah+Lot+Temple+Bali'},
+  {name:'La Favela',addr:'Jl. Laksmana No.12',icon:'🍻',maps:'La+Favela+Seminyak+Bali'},
+  {name:'Jari Menari Spa',addr:'Seminyak',icon:'💆',maps:'Jari+Menari+Spa+Bali'},
+  {name:'Sardine',addr:'Jl. Petitenget No.21',icon:'🎊',maps:'Sardine+Restaurant+Bali'}
+];
 
-function processFile(file) {
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    fileB64 = e.target.result.split(',')[1];
-    fileName.textContent = '✅ ' + file.name + ' (' + (file.size/1024).toFixed(1) + ' KB)';
-    checkReady();
-  };
-  reader.readAsDataURL(file);
-}
+let expenses=[{title:'Villa – Kuta Utara (Airbnb)',amount:1405.88,cat:'🏠',by:'Saravana'}];
 
-document.getElementById('token').addEventListener('input', checkReady);
-function checkReady() {
-  deployBtn.disabled = !(document.getElementById('token').value.trim() && fileB64);
-}
+// NAV
+const navBtns=document.querySelectorAll('.nav-btn');
+navBtns.forEach(btn=>btn.addEventListener('click',()=>go(btn.dataset.tab)));
+function go(tab){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('s-'+tab).classList.add('active');navBtns.forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.getElementById('s-'+tab).scrollTop=0}
 
-function showStatus(msg, type) {
-  const s = document.getElementById('status');
-  s.innerHTML = msg;
-  s.className = 'status show ' + type;
-}
+// COUNTDOWN
+function updateCountdown(){const diff=TRIP_START-new Date();const el=document.getElementById('heroNum'),u=document.getElementById('heroUnit');if(diff<=0){el.textContent='🌴';el.style.fontSize='64px';u.textContent='Trip is LIVE!';return}const d=Math.floor(diff/864e5);if(d>=1){el.textContent=d;u.textContent=d===1?'day to departure':'days to departure'}else{const h=Math.floor((diff%864e5)/36e5),m=Math.floor((diff%36e5)/6e4);el.textContent=h+'h '+m+'m';el.style.fontSize='52px';u.textContent='to departure';el.classList.add('pulse')}}
+updateCountdown();setInterval(updateCountdown,6e4);
 
-async function deploy() {
-  const token = document.getElementById('token').value.trim();
-  const repo = document.getElementById('repo').value.trim() || 'kbm-bali-2026';
-  
-  if (!token || !fileB64) return;
-  
-  deployBtn.disabled = true;
-  deployBtn.innerHTML = '<span class="spinner"></span> Creating repo...';
-  
-  const headers = {
-    'Authorization': 'token ' + token,
-    'Accept': 'application/vnd.github.v3+json',
-    'Content-Type': 'application/json'
-  };
-  
-  try {
-    // Step 1: Create repo
-    showStatus('📦 Creating repo <b>Saragloworld/' + repo + '</b>...', 'info');
-    
-    const createResp = await fetch('https://api.github.com/user/repos', {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        name: repo,
-        description: 'KBM Bali 2026 🌴 Boys Trip App',
-        private: false,
-        auto_init: false
-      })
+function renderAll(){renderSquad();renderFlights();renderItinerary();renderExpenses();renderSettlement();renderInfoSquad();renderLocations()}
+
+// SQUAD
+function renderSquad(){document.getElementById('squadRow').innerHTML=SQUAD.map((s,i)=>`<div class="squad-av" onclick="openSquadEdit(${i})"><div class="squad-edit-hint">✎</div><div class="squad-circle" style="border-color:${s.color};color:${s.color}">${s.init}</div><div class="squad-name">${s.name}</div></div>`).join('')}
+function openSquadEdit(i){editingIdx=i;editColor=SQUAD[i].color;document.getElementById('smInit').value=SQUAD[i].init;document.getElementById('smNick').value=SQUAD[i].name;updateSquadPreview();renderColorPicker();document.getElementById('squadModal').classList.add('open');setTimeout(()=>document.getElementById('smInit').focus(),300)}
+function closeSquadModal(){document.getElementById('squadModal').classList.remove('open');editingIdx=-1}
+function updateSquadPreview(){const p=document.getElementById('smPreview');p.textContent=document.getElementById('smInit').value||'??';p.style.borderColor=editColor;p.style.color=editColor}
+function renderColorPicker(){document.getElementById('smColors').innerHTML=SQUAD_COLORS.map(c=>`<div class="modal-cat${c===editColor?' selected':''}" style="width:36px;height:36px;border-radius:50%;background:${c}" onclick="pickColor('${c}')"></div>`).join('')}
+function pickColor(c){editColor=c;renderColorPicker();updateSquadPreview()}
+document.getElementById('smInit').addEventListener('input',updateSquadPreview);
+function saveSquadEdit(){if(editingIdx<0)return;const init=document.getElementById('smInit').value.trim(),nick=document.getElementById('smNick').value.trim();if(!init||!nick){toast('Fill both fields');return}SQUAD[editingIdx].init=init.toUpperCase();SQUAD[editingIdx].name=nick;SQUAD[editingIdx].color=editColor;saveSquad();renderAll();closeSquadModal();toast('Updated: '+nick)}
+document.getElementById('squadModal').addEventListener('click',function(e){if(e.target===this)closeSquadModal()});
+
+// FLIGHTS
+function renderFlights(){const d=getFlights();document.getElementById('flightsList').innerHTML=d.map(sec=>`<div style="margin-bottom:8px;font-size:12px;font-weight:600;color:${sec.color};text-transform:uppercase;letter-spacing:.5px">${sec.section}</div>${sec.flights.map(f=>`<div class="flight-card"><div class="flight-top"><div class="flight-pax">${f.pax}</div><div class="chip ${f.chipClass}">${f.chip}</div></div><div class="flight-route"><div class="flight-point"><div class="flight-code">${f.from.code}</div><div class="flight-city">${f.from.city}</div><div class="flight-time">${f.from.time}</div><div class="flight-tz">${f.from.tz}</div></div><div class="flight-line"></div><div class="flight-point"><div class="flight-code">${f.to.code}</div><div class="flight-city">${f.to.city}</div><div class="flight-time">${f.to.time}</div><div class="flight-tz">${f.to.tz}</div></div></div><div class="flight-meta">${f.tags.map(t=>{const p=t.indexOf(' ');return`<div class="flight-tag">${t.substring(0,p)} <span>${t.substring(p+1)}</span></div>`}).join('')}</div></div>`).join('')}`).join('')}
+
+// ITINERARY
+function renderItinerary(){
+  let html='';
+  itinerary.forEach((day,di)=>{
+    html+=`<div class="day-header"><div class="day-badge">Day ${di+1}</div><div class="day-date">${DAY_DATES[di]}</div></div>`;
+    day.items.forEach((it,ii)=>{
+      const ls=it.loc?it.loc.replace(/'/g,"\\'"):'';
+      const isFlight=it.title.includes('✈️')||it.title.includes('🛬');
+      const canDel=!it.fixed;
+      html+=`<div class="tl-item"><div class="tl-left"><div class="tl-time">${it.time}</div><div class="tl-tz">${it.tz}</div><div class="tl-dot"></div>${ii<day.items.length-1?'<div class="tl-line"></div>':''}</div><div class="tl-body">${canDel?`<button class="tl-del" onclick="delItinItem(${di},${ii})">✕</button>`:''}<div class="tl-title">${it.title}</div><div class="tl-loc">${it.loc}</div>${it.desc?`<div class="tl-desc">${it.desc}</div>`:''}${!isFlight&&ls?`<div class="tl-actions"><button class="tl-btn tl-btn-map" onclick="openMaps('${ls}')">📍 Maps</button><button class="tl-btn tl-btn-grab" onclick="openGrab('${ls}')">🚗 Grab</button></div>`:''}</div></div>`;
     });
-    
-    if (!createResp.ok) {
-      const err = await createResp.json();
-      if (err.errors && err.errors[0]?.message?.includes('already exists')) {
-        showStatus('⚠️ Repo already exists — will update the file.', 'info');
-      } else {
-        throw new Error(err.message || 'Failed to create repo');
-      }
+    html+=`<button class="add-btn" style="margin-bottom:16px" onclick="openItinModal(${di})">+ Add to Day ${di+1}</button>`;
+  });
+  document.getElementById('itineraryList').innerHTML=html;
+}
+function delItinItem(di,ii){showConfirm('Remove "'+itinerary[di].items[ii].title+'" from itinerary?',function(){itinerary[di].items.splice(ii,1);renderItinerary();updateDashCounts();toast('Removed')})}
+function openItinModal(di){document.getElementById('iDay').innerHTML=DAY_LABELS.map((l,i)=>`<option value="${i}"${i===di?' selected':''}>${l}</option>`).join('');document.getElementById('iTime').value='';document.getElementById('iTitle').value='';document.getElementById('iLoc').value='';document.getElementById('iDesc').value='';document.getElementById('itinModal').classList.add('open')}
+function closeItinModal(){document.getElementById('itinModal').classList.remove('open')}
+function submitItinItem(){const di=parseInt(document.getElementById('iDay').value),time=document.getElementById('iTime').value.trim(),title=document.getElementById('iTitle').value.trim(),loc=document.getElementById('iLoc').value.trim(),desc=document.getElementById('iDesc').value.trim();if(!time||!title){toast('Time & title required');return}itinerary[di].items.push({time,tz:'WITA',title,loc,desc});renderItinerary();updateDashCounts();closeItinModal();toast('Added: '+title)}
+document.getElementById('itinModal').addEventListener('click',function(e){if(e.target===this)closeItinModal()});
+
+// EXPENSES
+function renderExpenses(){
+  const total=expenses.reduce((s,e)=>s+e.amount,0),pp=(total/5).toFixed(2);
+  document.getElementById('expTotal').textContent='S$'+total.toFixed(2);document.getElementById('expPP').textContent='S$'+pp;document.getElementById('expCount').textContent=expenses.length;document.getElementById('dashTotal').textContent='S$'+total.toFixed(0);
+  document.getElementById('expenseList').innerHTML=expenses.map((e,i)=>`<div class="exp-item"><div class="exp-icon">${e.cat}</div><div class="exp-info"><div class="exp-title">${e.title}</div><div class="exp-by">Paid by ${e.by}</div></div><div class="exp-amt">S$${e.amount.toFixed(2)}</div><div class="exp-actions"><button class="exp-act-btn exp-edit" onclick="editExp(${i})">✎</button><button class="exp-act-btn exp-del" onclick="delExp(${i})">✕</button></div></div>`).join('');
+}
+function delExp(i){showConfirm('Delete "'+expenses[i].title+'"?',function(){expenses.splice(i,1);renderExpenses();renderSettlement();toast('Deleted')})}
+function editExp(i){editingExpIdx=i;const e=expenses[i];document.getElementById('mExpName').value=e.title;document.getElementById('mExpAmt').value=e.amount;selectedCat=e.cat;selectedPayer=e.by;document.getElementById('expModalTitle').textContent='Edit Expense';document.getElementById('expModalBtn').textContent='Save Changes';document.getElementById('expModalBtn').onclick=()=>saveExpEdit();renderExpCats();renderExpPayers();document.getElementById('expModal').classList.add('open')}
+function saveExpEdit(){const name=document.getElementById('mExpName').value.trim(),amt=parseFloat(document.getElementById('mExpAmt').value);if(!name||isNaN(amt)||amt<=0){toast('Fill name & amount');return}expenses[editingExpIdx]={title:name,amount:amt,cat:selectedCat,by:selectedPayer};editingExpIdx=-1;renderExpenses();renderSettlement();closeExpModal();toast('Updated')}
+function openExpModal(){editingExpIdx=-1;selectedCat='🍽️';selectedPayer=SQUAD[0].name;document.getElementById('mExpName').value='';document.getElementById('mExpAmt').value='';document.getElementById('receiptArea').innerHTML='';document.getElementById('expModalTitle').textContent='Add Expense';document.getElementById('expModalBtn').textContent='Add Expense';document.getElementById('expModalBtn').onclick=()=>submitExpense();renderExpCats();renderExpPayers();document.getElementById('expModal').classList.add('open');setTimeout(()=>document.getElementById('mExpName').focus(),300)}
+function closeExpModal(){document.getElementById('expModal').classList.remove('open')}
+function renderExpCats(){document.getElementById('mExpCats').innerHTML=CATEGORIES.map(c=>`<div class="modal-cat${c===selectedCat?' selected':''}" onclick="pickCat('${c}')">${c}</div>`).join('')}
+function pickCat(c){selectedCat=c;renderExpCats()}
+function renderExpPayers(){document.getElementById('mExpPaidBy').innerHTML=SQUAD.map(s=>`<div class="modal-cat${s.name===selectedPayer?' selected':''}" style="font-size:12px;padding:8px 12px" onclick="pickPayer('${s.name}')">${s.name}</div>`).join('')}
+function pickPayer(n){selectedPayer=n;renderExpPayers()}
+function submitExpense(){const name=document.getElementById('mExpName').value.trim(),amt=parseFloat(document.getElementById('mExpAmt').value);if(!name||isNaN(amt)||amt<=0){toast('Fill name & amount');return}expenses.push({title:name,amount:amt,cat:selectedCat,by:selectedPayer});renderExpenses();renderSettlement();closeExpModal();toast('Added: '+name)}
+document.getElementById('expModal').addEventListener('click',function(e){if(e.target===this)closeExpModal()});
+
+// RECEIPT SCAN
+function openReceiptScan(){document.getElementById('receiptPreview').innerHTML='';document.getElementById('scanStatus').innerHTML='';document.getElementById('receiptFile').value='';document.getElementById('receiptModal').classList.add('open')}
+function closeReceiptModal(){document.getElementById('receiptModal').classList.remove('open')}
+document.getElementById('receiptModal').addEventListener('click',function(e){if(e.target===this)closeReceiptModal()});
+async function handleReceipt(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    const base64=e.target.result.split(',')[1];
+    const mediaType=file.type||'image/jpeg';
+    document.getElementById('receiptPreview').innerHTML=`<img src="${e.target.result}" class="receipt-preview">`;
+    document.getElementById('scanStatus').innerHTML=`<div class="scanning-indicator"><div class="dot"></div>Scanning receipt with AI...</div>`;
+    try{
+      const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:[{type:'image',source:{type:'base64',media_type:mediaType,data:base64}},{type:'text',text:'This is a receipt photo. Extract: 1) What was purchased (short title), 2) Total amount in SGD (or convert to SGD if in IDR, use rate 1 SGD = 12200 IDR). 3) A category emoji from this list: 🍽️🍻🚗🎫💆🏠🛍️💰. Respond ONLY in JSON: {"title":"...","amount":0.00,"cat":"🍽️"}. No markdown, no backticks.'}]}]})});
+      const data=await resp.json();
+      const text=data.content?.map(c=>c.text||'').join('')||'';
+      const clean=text.replace(/```json|```/g,'').trim();
+      const parsed=JSON.parse(clean);
+      closeReceiptModal();
+      // Pre-fill expense modal
+      selectedCat=parsed.cat||'🍽️';selectedPayer=SQUAD[0].name;editingExpIdx=-1;
+      document.getElementById('mExpName').value=parsed.title||'';
+      document.getElementById('mExpAmt').value=parsed.amount||'';
+      document.getElementById('receiptArea').innerHTML=`<img src="${e.target.result}" class="receipt-preview">`;
+      document.getElementById('expModalTitle').textContent='Add Expense (from receipt)';
+      document.getElementById('expModalBtn').textContent='Add Expense';
+      document.getElementById('expModalBtn').onclick=()=>submitExpense();
+      renderExpCats();renderExpPayers();
+      document.getElementById('expModal').classList.add('open');
+      toast('Receipt scanned!');
+    }catch(err){
+      document.getElementById('scanStatus').innerHTML=`<div style="color:var(--coral);font-size:12px;margin-top:8px">Could not read receipt. Try a clearer photo or add manually.</div>`;
     }
-    
-    // Small delay for GitHub to register
-    await new Promise(r => setTimeout(r, 1500));
-    
-    // Step 2: Get owner username
-    const userResp = await fetch('https://api.github.com/user', { headers });
-    const user = await userResp.json();
-    const owner = user.login;
-    
-    // Step 3: Check if file exists (for update)
-    deployBtn.innerHTML = '<span class="spinner"></span> Uploading file...';
-    showStatus('📤 Uploading <b>index.html</b>...', 'info');
-    
-    let sha = null;
-    try {
-      const existing = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, { headers });
-      if (existing.ok) {
-        const data = await existing.json();
-        sha = data.sha;
-      }
-    } catch(e) {}
-    
-    // Step 4: Push index.html
-    const pushBody = {
-      message: sha ? 'Update KBM Bali 2026 app' : 'Initial deploy: KBM Bali 2026 🌴',
-      content: fileB64
-    };
-    if (sha) pushBody.sha = sha;
-    
-    const pushResp = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/index.html`, {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify(pushBody)
-    });
-    
-    if (!pushResp.ok) {
-      const err = await pushResp.json();
-      throw new Error(err.message || 'Failed to push file');
-    }
-    
-    // Done!
-    deployBtn.innerHTML = '✅ Pushed!';
-    showStatus(
-      '🎉 <b>Done!</b> File pushed to <a href="https://github.com/' + owner + '/' + repo + '" target="_blank">github.com/' + owner + '/' + repo + '</a><br><br>' +
-      '👉 Now go to <a href="https://vercel.com/new" target="_blank"><b>Vercel → New Project</b></a><br>' +
-      '→ You\'ll see <b>' + repo + '</b> in your repo list<br>' +
-      '→ Click <b>Import</b> → <b>Deploy</b><br><br>' +
-      '🌴 Live at <b>' + repo + '.vercel.app</b>',
-      'success'
-    );
-    
-    setTimeout(() => {
-      deployBtn.innerHTML = '🚀 Push to GitHub';
-      deployBtn.disabled = false;
-    }, 3000);
-    
-  } catch(err) {
-    showStatus('❌ Error: ' + err.message, 'error');
-    deployBtn.innerHTML = '🚀 Push to GitHub';
-    deployBtn.disabled = false;
+  };reader.readAsDataURL(file);
+}
+
+// SETTLEMENT CALCULATOR
+function renderSettlement(){
+  const total=expenses.reduce((s,e)=>s+e.amount,0);
+  const perPerson=total/5;
+  // Calculate each person's net: paid - owed
+  const paid={};SQUAD.forEach(s=>paid[s.name]=0);
+  expenses.forEach(e=>{if(paid[e.by]!==undefined)paid[e.by]+=e.amount});
+  const balances=SQUAD.map(s=>({name:s.name,bal:paid[s.name]-perPerson}));
+  // Settle: who pays who
+  const debtors=balances.filter(b=>b.bal<-0.01).map(b=>({...b,bal:Math.abs(b.bal)})).sort((a,b)=>b.bal-a.bal);
+  const creditors=balances.filter(b=>b.bal>0.01).map(b=>({...b})).sort((a,b)=>b.bal-a.bal);
+  const settlements=[];
+  let di=0,ci=0;
+  while(di<debtors.length&&ci<creditors.length){
+    const amt=Math.min(debtors[di].bal,creditors[ci].bal);
+    if(amt>0.01)settlements.push({from:debtors[di].name,to:creditors[ci].name,amount:amt});
+    debtors[di].bal-=amt;creditors[ci].bal-=amt;
+    if(debtors[di].bal<0.01)di++;
+    if(creditors[ci].bal<0.01)ci++;
   }
+  let html=`<div class="settle-section"><div class="settle-title">💸 Who Pays Who</div>`;
+  if(settlements.length===0){html+=`<div class="settle-done">All settled! No payments needed.</div>`}
+  else{
+    // Summary per person
+    html+=`<div style="margin-bottom:12px">`;
+    SQUAD.forEach(s=>{
+      const p=paid[s.name];html+=`<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:12px"><span style="color:var(--text2)">${s.name} paid</span><span style="font-family:var(--mono);font-weight:600">S$${p.toFixed(2)}</span></div>`;
+    });
+    html+=`<div style="display:flex;justify-content:space-between;padding:8px 0;border-top:1px solid rgba(255,255,255,.06);font-size:12px;font-weight:700"><span>Each owes</span><span style="font-family:var(--mono);color:var(--accent)">S$${perPerson.toFixed(2)}</span></div></div>`;
+    settlements.forEach(s=>{html+=`<div class="settle-card"><span class="settle-name">${s.from}</span><span class="settle-arrow">→ pays →</span><span class="settle-name">${s.to}</span><span class="settle-amt">S$${s.amount.toFixed(2)}</span></div>`});
+  }
+  html+=`</div>`;
+  document.getElementById('settleSection').innerHTML=html;
 }
+
+// INFO SQUAD
+function renderInfoSquad(){document.getElementById('infoSquad').innerHTML=SQUAD.map(s=>`<div class="info-row"><div class="info-label">${s.name}</div><div class="info-val">${s.flag} ${s.city} · ${s.airline}</div></div>`).join('')}
+
+// LOCATIONS
+function renderLocations(){document.getElementById('locationList').innerHTML=LOCATIONS.map(l=>`<div class="loc-card"><div class="loc-banner">${l.icon}</div><div class="loc-body"><div class="loc-name">${l.name}</div><div class="loc-addr">${l.addr}</div><div class="loc-btns"><button class="loc-btn loc-btn-map" onclick="openMaps('${l.maps}')">📍 Maps</button><button class="loc-btn loc-btn-grab" onclick="openGrab('${l.name.replace(/'/g,"\\'")}')">🚗 Grab</button></div></div></div>`).join('')}
+
+// CUSTOM CONFIRM MODAL (replaces browser confirm() which is blocked in iframes)
+let confirmCallback=null;
+function showConfirm(msg,onYes){confirmCallback=onYes;document.getElementById('confirmMsg').textContent=msg;document.getElementById('confirmOverlay').classList.add('open')}
+function confirmYes(){document.getElementById('confirmOverlay').classList.remove('open');if(confirmCallback)confirmCallback();confirmCallback=null}
+function confirmNo(){document.getElementById('confirmOverlay').classList.remove('open');confirmCallback=null}
+document.getElementById('confirmOverlay').addEventListener('click',function(e){if(e.target===this)confirmNo()});
+
+// UPDATE DASHBOARD COUNTS (itinerary activities + expenses)
+function updateDashCounts(){
+  const totalActivities=itinerary.reduce((s,d)=>s+d.items.filter(i=>!i.fixed).length,0);
+  document.querySelectorAll('.quick-val')[1].textContent=totalActivities+' activities';
+}
+
+function openMaps(q){window.open('https://www.google.com/maps/search/'+encodeURIComponent(q),'_blank')}
+function openGrab(d){toast('Opening Grab…');window.open('https://grab.onelink.me/2695613898?af_dp=grab://','_blank')}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+
+renderAll();updateDashCounts();
 </script>
 </body>
 </html>
